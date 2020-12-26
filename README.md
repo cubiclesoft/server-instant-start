@@ -3,9 +3,9 @@ Server Instant Start
 
 Spin up a fully configured Ubuntu/Debian-based web server in under 5 minutes with Nginx (w/ HTTPS), PHP FPM, Postfix, OpenDKIM, MySQL/MariaDB, PostgreSQL, and more.  Deploy your web application too.
 
-Instant Start is useful for setting up an entire server with minimal effort.  Quickly install all components of a server in just a couple of minutes:  A well-rounded OS configuration plus optional web server, email sending capabilities, scripting language, and database.
+Instant Start is useful for setting up an entire server with minimal effort.  Quickly install all components of a server in just a couple of minutes:  A well-rounded OS configuration plus optional configuration of web server, email sending capabilities, a scripting language, and database(s).
 
-Only using Instant Start on a new server is highly recommended.  Any Debian-based Linux distribution will probably work fine.  Failure to use Instant Start on a newly created system may result in damage to existing configuration files and/or data loss.
+Only using Instant Start on a brand new server is highly recommended.  Any Debian-based Linux distribution will probably work fine.  Failure to use Instant Start on a newly created system may result in damage to existing configuration files and/or data loss.
 
 [![Donate](https://cubiclesoft.com/res/donate-shield.png)](https://cubiclesoft.com/donate/) [![Discord](https://img.shields.io/discord/777282089980526602?label=chat&logo=discord)](https://cubiclesoft.com/product-support/github/)
 
@@ -78,7 +78,9 @@ The other `export` options are optional.  Fill out the desired configuration and
 
 Even after the Droplet becomes available, it can be a few minutes before the server is fully installed.  To watch the installation progress in a SSH terminal, run the following command:
 
-`tail -f /var/log/cloud-init-output.log`
+```
+tail -f /var/log/cloud-init-output.log
+```
 
 When the server installation is finished, a file called `/root/README-ServerInstantStart` will be created which contains credentials for various server resources (e.g. MariaDB root password).  SSH or SFTP is required to read the file.
 
@@ -130,13 +132,13 @@ Optionally installed:
 DigitalOcean?  Droplets?
 ------------------------
 
-To run this software, you need a Virual Private Server (VPS) provider like DigitalOcean, OVH, AWS, Azure, etc.
+To run this software, you need an Ubuntu/Debian OS distribution on a Virual Private Server (VPS) or dedicated host.  Providers like DigitalOcean, OVH, AWS, Azure, etc. make it easy to spin up a VPS.
 
 DigitalOcean is primarily for quickly setting up a temporary Internet-facing server, which is good for testing or short-lived projects.  Web hosting service providers abound but most of those are shared hosts with little control.  A Virtual Private Server (VPS), which is what DigitalOcean mostly offers/provides, is something between shared hosting and cloud/dedicated hosting.  Droplets are intended to be cheap, short-lived VPS instances that are created and destroyed as needed.  Even though Droplets weren't really ever intended for normal web hosting, quite a few people use them that way.
 
-Running a VPS (or similar) comes with responsbilities.  The biggest one is making sure the system is secure, which means that the system remains fully patched because it won't be done automatically.  Server Instant Start performs an opinionated installation that attempts to create a generally self-secure system.  For example, it installs a PHP script that runs `apt-get dist-upgrade` with rebooting as needed (e.g. kernel updates) and configures cron to automatically run that script every single day.
+Running a VPS (or similar) comes with responsbilities.  The biggest one is making sure that the system is secure, which means that the system remains fully patched because it won't automatically be done for you.  Server Instant Start solves a number of configuration management problems by performing an opinionated installation that attempts to create a generally self-securing setup.  For example, it installs a PHP script that runs `apt-get dist-upgrade` with automatic rebooting as needed (e.g. kernel updates) and configures cron to automatically run that script every single day.  The contents of and knowledge contained in this repository come from responsibly managing many Linux-based web servers for over a decade.
 
-The shell script under the Getting Started section is also in `example_install.sh`.  Just manually modify `PUBLIC_IPV4` and `PUBLIC_IPV6` with correct IP address(es) and then the script can be executed on a non-DigitalOcean system as the `root` user.  If the intent is to run a server long-term, I highly recommend using an [OVH VPS](https://www.ovhcloud.com/en/vps/cheap-vps/) instead of DigitalOcean.  They offer a lot more hardware for less cost but slightly less comprehensive technical support.
+The shell script under the Getting Started section is also in `example_install.sh`.  For non-DigitalOcean hosts, just upload files, manually modify `PUBLIC_IPV4` and `PUBLIC_IPV6` with correct IP address(es) and then the script can be execute the script as the `root` user.  If the intent is to run a server long-term, I highly recommend using an [OVH VPS](https://www.ovhcloud.com/en/vps/cheap-vps/) instead of DigitalOcean since OVH offers a lot more hardware and network transfer for less cost but slightly less comprehensive technical support.
 
 More Information
 ----------------
