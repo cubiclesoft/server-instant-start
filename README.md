@@ -26,7 +26,7 @@ Open the following in a new tab to start creating a Droplet on DigitalOcean:
 
 [![Deploy to DO](https://mp-assets1.sfo2.digitaloceanspaces.com/deploy-to-do/do-btn-blue.svg)](https://cloud.digitalocean.com/droplets/new?size=s-1vcpu-1gb&distro=ubuntu&options=ipv6)
 
-(Read the Non-DigitalOcean Setup section below for other VPS providers.)
+(Read the Alternate VPS Setup section below for using Instant Start with other VPS providers.)
 
 Under "Select additional options" check the checkbox that says "User data".  Copy and paste the following script into the box that appears and modify it as you see fit:
 
@@ -131,8 +131,8 @@ Optionally installed and configured:
 * MariaDB/MySQL.
 * PostgreSQL.
 
-Non-DigitalOcean Setup
-----------------------
+Alternate VPS Setup
+-------------------
 
 To run this software, you need an Ubuntu/Debian OS distribution on a Virual Private Server (VPS) or dedicated host.  Providers like DigitalOcean, OVH, AWS, Azure, etc. make it easy to spin up a VPS.
 
