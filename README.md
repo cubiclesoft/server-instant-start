@@ -22,7 +22,7 @@ Features
 Getting Started
 ---------------
 
-Open the following in a new tab to start creating a Droplet on DigitalOcean:
+Open the following in a new tab to start creating a Droplet on DigitalOcean (read the Non-DigitalOcean Setup section below for other VPS providers):
 
 [![Deploy to DO](https://mp-assets1.sfo2.digitaloceanspaces.com/deploy-to-do/do-btn-blue.svg)](https://cloud.digitalocean.com/droplets/new?size=s-1vcpu-1gb&distro=ubuntu&options=ipv6)
 
