@@ -24,7 +24,7 @@ Getting Started
 
 Open the following in a new tab to start creating a Droplet on DigitalOcean:
 
-[![Deploy to DO](https://mp-assets1.sfo2.digitaloceanspaces.com/deploy-to-do/do-btn-blue.svg)](https://cloud.digitalocean.com/droplets/new?size=s-1vcpu-1gb&distro=ubuntu&options=ipv6 New DigitalOcean Droplet)
+[![Deploy to DO](https://mp-assets1.sfo2.digitaloceanspaces.com/deploy-to-do/do-btn-blue.svg)](https://cloud.digitalocean.com/droplets/new?size=s-1vcpu-1gb&distro=ubuntu&options=ipv6)
 
 Under "Select additional options" check the checkbox that says "User data".  Copy and paste the following script into the box that appears and modify it as you see fit:
 
@@ -130,9 +130,9 @@ Optionally installed:
 DigitalOcean?  Droplets?
 ------------------------
 
-You need a Virual Private Server (VPS) provider like DigitalOcean, OVH, AWS, Azure, etc.
+To run this software, you need a Virual Private Server (VPS) provider like DigitalOcean, OVH, AWS, Azure, etc.
 
-DigitalOcean is primarily for quickly setting up an Internet-facing server.  Web hosting service providers abound but most of those are shared hosts with little control.  A Virtual Private Server (VPS), which is what DigitalOcean mostly offers/provides, is something between shared hosting and cloud/dedicated hosting.  Droplets are intended to be cheap, short-lived VPS instances that are created and destroyed as needed.  Even though Droplets weren't really ever intended for normal web hosting, quite a few people use them that way.
+DigitalOcean is primarily for quickly setting up a temporary Internet-facing server, which is good for testing or short-lived projects.  Web hosting service providers abound but most of those are shared hosts with little control.  A Virtual Private Server (VPS), which is what DigitalOcean mostly offers/provides, is something between shared hosting and cloud/dedicated hosting.  Droplets are intended to be cheap, short-lived VPS instances that are created and destroyed as needed.  Even though Droplets weren't really ever intended for normal web hosting, quite a few people use them that way.
 
 Running a VPS (or similar) comes with responsbilities.  The biggest one is making sure the system is secure, which means that the system remains fully patched because it won't be done automatically.  Server Instant Start performs an opinionated installation that attempts to create a generally self-secure system.  For example, it installs a PHP script that runs `apt-get dist-upgrade` with rebooting as needed (e.g. kernel updates) and configures cron to automatically run that script every single day.
 
