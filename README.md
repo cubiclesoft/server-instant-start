@@ -1,7 +1,9 @@
 Server Instant Start
 ====================
 
-Instant Start is useful for setting up an entire server with minimal effort.  Quickly install all components of a server in just a couple of minutes:  A well-rounded OS configuration plus optional email server, web server, scripting language, and database.
+Spin up a fully configured Ubuntu/Debian-based web server in under 5 minutes with Nginx (w/ HTTPS), PHP FPM, Postfix, OpenDKIM, MySQL/MariaDB, PostgreSQL, and more.  Deploy your web application too.
+
+Instant Start is useful for setting up an entire server with minimal effort.  Quickly install all components of a server in just a couple of minutes:  A well-rounded OS configuration plus optional web server, email sending capabilities, scripting language, and database.
 
 Only using Instant Start on a new server is highly recommended.  Any Debian-based Linux distribution will probably work fine.  Failure to use Instant Start on a newly created system may result in damage to existing configuration files and/or data loss.
 
@@ -125,20 +127,20 @@ Optionally installed:
 * MariaDB/MySQL.
 * PostgreSQL.
 
-What Is DigitalOcean?
----------------------
+DigitalOcean?  Droplets?
+------------------------
 
-DigitalOcean is primarily for quickly setting up an Internet-facing server.  Web hosting service providers abound but most of those are shared hosts with little control.  A Virtual Private Server (VPS), which is what DigitalOcean provides, is something between shared hosting and cloud/dedicated hosting.  Droplets are intended to be cheap, short-lived VPS instances that are created and destroyed as needed.  Droplets weren't really ever intended for normal web hosting, but quite a few people use them that way.
+You need a Virual Private Server (VPS) provider like DigitalOcean, OVH, AWS, Azure, etc.
 
-Running a VPS (or similar) comes with responsbilities.  The biggest one is making sure the system is secure, which means that the system remains fully patched because it won't be done automatically.  However, the ability to do anything on the system as the `root` user usually far outweighs the extra responsibilities that come with it.
+DigitalOcean is primarily for quickly setting up an Internet-facing server.  Web hosting service providers abound but most of those are shared hosts with little control.  A Virtual Private Server (VPS), which is what DigitalOcean mostly offers/provides, is something between shared hosting and cloud/dedicated hosting.  Droplets are intended to be cheap, short-lived VPS instances that are created and destroyed as needed.  Even though Droplets weren't really ever intended for normal web hosting, quite a few people use them that way.
 
-If the intent is to run a server long-term, I highly recommend using a [OVH VPS](https://www.ovhcloud.com/en/vps/cheap-vps/) instead of DigitalOcean.  They offer a lot more hardware for less cost but slightly less comprehensive technical support.  The shell script under the Getting Started section can be manually modified to set `PUBLIC_IPV4` and then the script can be executed on a system like an OVH VPS as the `root` user.
+Running a VPS (or similar) comes with responsbilities.  The biggest one is making sure the system is secure, which means that the system remains fully patched because it won't be done automatically.  Server Instant Start performs an opinionated installation that attempts to create a generally self-secure system.  For example, it installs a PHP script that runs `apt-get dist-upgrade` with rebooting as needed (e.g. kernel updates) and configures cron to automatically run that script every single day.
+
+The shell script under the Getting Started section is also in `example_install.sh`.  Just manually modify `PUBLIC_IPV4` and `PUBLIC_IPV6` with correct IP address(es) and then the script can be executed on a non-DigitalOcean system as the `root` user.  If the intent is to run a server long-term, I highly recommend using an [OVH VPS](https://www.ovhcloud.com/en/vps/cheap-vps/) instead of DigitalOcean.  They offer a lot more hardware for less cost but slightly less comprehensive technical support.
 
 More Information
 ----------------
 
 The PHP installation script `install.php` aims to be idempotent.  That is, if it is run again intentionally or by accident, it will result in the same output.
 
-A system group called `sftp-users` is created during the installation process.  The `setgid` attribute is set on various key locations so that any user assigned to the group can easily create new files in a team setting.
-
-A number of the scripts are designed to be reusable for other purposes (e.g. 'scripts/setup_nginx.php').  That is, they can be reused for creating similar installers for other software products.
+A system group called `sftp-users` is created during the installation process.  The `setgid` attribute is set on various key locations so that any user assigned to the group can easily create new files in a team setting.  Just assign the `sftp-users` group to members of your team.
