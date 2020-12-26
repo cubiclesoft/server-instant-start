@@ -1,0 +1,32 @@
+# To redirect HTTP to HTTPS, uncomment this server section and comment/remove the other server's "listen 80" lines.
+#server {
+#    listen 80;
+#    listen [::]:80;
+#    server_name domain.com;
+#
+#    rewrite ^ https://domain.com$request_uri permanent;
+#}
+
+server {
+    listen 80;
+    listen [::]:80;
+#    listen 443 ssl http2;
+#    listen [::]:443 ssl http2;
+    server_name domain.com;
+    root /var/www/domain.com/public_html;
+
+#    ssl_certificate           /path/to/domain.com/fullchain.pem;
+#    ssl_certificate_key       /path/to/domain.com/privkey.pem;
+#    ssl_trusted_certificate   /path/to/domain.com/chain.pem;
+
+    include /etc/nginx/global/restrictions.conf;
+
+    # Default location handler.
+    include /etc/nginx/global/location-default.conf;
+#    include /etc/nginx/global/location-cms.conf;
+
+    # Additional rules go here.
+#    error_page 400 404 https://domain.com/;
+
+    include /etc/nginx/global/php-local.conf;
+}

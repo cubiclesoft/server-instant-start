@@ -1,0 +1,6 @@
+# Generic fallback for when no other URI matches have taken place.
+# Including this file is NOT recommended when using a CMS.
+
+location / {
+    try_files $uri $uri/ =404;
+}

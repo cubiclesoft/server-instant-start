@@ -1,0 +1,6 @@
+# Generic fallback for when no other URI matches have taken place.
+# Including this or a similar file is recommended when using a CMS.
+
+location / {
+    try_files $uri $uri/ /index.php$is_args$args;
+}
