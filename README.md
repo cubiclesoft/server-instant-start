@@ -115,7 +115,7 @@ Always installed:
 * fail2ban.  Slows down attackers.
 * iptables-persistent.  Sane default firewall rules.
 * net-tools.  netstat, etc.
-* vnstat.  Tracks monthly transfer.
+* vnstat.  Tracks monthly network transfer.
 * htop.  A much better top.
 * Fully automated system update script (except major OS upgrades).
 * PHP extensions (cURL, JSON, PDO sqlite, GD).
