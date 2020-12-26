@@ -109,7 +109,7 @@ Key Locations
 Installed Software
 ------------------
 
-Always installed:
+Always installed and configured:
 
 * PHP CLI.
 * fail2ban.  Slows down attackers.
@@ -120,7 +120,7 @@ Always installed:
 * Fully automated system update script (except major OS upgrades).
 * PHP extensions (cURL, JSON, PDO sqlite, GD).
 
-Optionally installed:
+Optionally installed and configured:
 
 * Postfix.
 * OpenDKIM.  Post-install only.
