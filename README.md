@@ -78,7 +78,7 @@ Update the `export TZ=` line with your current timezone.  This will be used to s
 
 The other `export` options are optional.  Fill out the desired configuration and uncomment/include any additional software you want to install/configure later.
 
-Even after the Droplet becomes available, it can be a few minutes before the server is fully installed.  To watch the installation progress in a SSH terminal, run the following command:
+Even after the Droplet becomes available, it can be a few minutes before the server is fully configured.  To watch the installation/configuration progress in a SSH terminal, run the following command:
 
 ```
 tail -f /var/log/cloud-init-output.log
