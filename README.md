@@ -129,16 +129,18 @@ Optionally installed:
 * MariaDB/MySQL.
 * PostgreSQL.
 
-DigitalOcean?  Droplets?
-------------------------
+Non-DigitalOcean Setup
+----------------------
 
 To run this software, you need an Ubuntu/Debian OS distribution on a Virual Private Server (VPS) or dedicated host.  Providers like DigitalOcean, OVH, AWS, Azure, etc. make it easy to spin up a VPS.
 
-DigitalOcean is primarily for quickly setting up a temporary Internet-facing server, which is good for testing or short-lived projects.  Web hosting service providers abound but most of those are shared hosts with little control.  A Virtual Private Server (VPS), which is what DigitalOcean mostly offers/provides, is something between shared hosting and cloud/dedicated hosting.  Droplets are intended to be cheap, short-lived VPS instances that are created and destroyed as needed.  Even though Droplets weren't really ever intended for normal web hosting, quite a few people use them that way.
+The shell script under the Getting Started section is also in `example_install.sh`.  For non-DigitalOcean hosts, just upload files, manually modify `PUBLIC_IPV4` and `PUBLIC_IPV6` in `example_install.sh` with correct IP address(es), perform a `chmod 755 example_install.sh`, and then execute the script as the `root` user `./example_install.sh`.
+
+DigitalOcean is primarily for quickly setting up a temporary Internet-facing server, which is good for trying out new things like Server Instant Start, testing some software in isolation, or for short-lived projects.  Web hosting service providers abound but most of those are shared hosts with little control.  A Virtual Private Server (VPS), which is what DigitalOcean mostly offers/provides, is something between shared hosting and cloud/dedicated hosting.  Droplets are intended to be cheap, short-lived VPS instances that are created and destroyed as needed.  Even though Droplets weren't really ever intended for normal web hosting, quite a few people use them that way.
 
 Running a VPS (or similar) comes with responsbilities.  The biggest one is making sure that the system is secure, which means that the system remains fully patched because it won't automatically be done for you.  Server Instant Start solves a number of configuration management problems by performing an opinionated installation that attempts to create a generally self-securing setup.  For example, it installs a PHP script that runs `apt-get dist-upgrade` with automatic rebooting as needed (e.g. kernel updates) and configures cron to automatically run that script every single day.
 
-The shell script under the Getting Started section is also in `example_install.sh`.  For non-DigitalOcean hosts, just upload files, manually modify `PUBLIC_IPV4` and `PUBLIC_IPV6` with correct IP address(es) and then the script can be execute the script as the `root` user.  If the intent is to run a server long-term, I highly recommend using an [OVH VPS](https://www.ovhcloud.com/en/vps/cheap-vps/) instead of DigitalOcean since OVH offers a lot more hardware and network transfer for less cost but slightly less comprehensive technical support.
+If the intent is to run a server long-term, I highly recommend using an [OVH VPS](https://www.ovhcloud.com/en/vps/cheap-vps/) instead of DigitalOcean since OVH offers a lot more hardware and network transfer for less cost but slightly less comprehensive technical support.
 
 More Information
 ----------------
