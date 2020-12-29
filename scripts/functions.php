@@ -148,4 +148,17 @@
 
 		return implode("-", $words);
 	}
+
+	// Runs an executable and waits while dumping output to stdout.
+	function RunExecutable($cmd)
+	{
+		$rootpath = str_replace("\\", "/", dirname(__FILE__));
+
+		if (!class_exists("ProcessHelper", false))  require_once $rootpath . "/../support/process_helper.php";
+
+		$procresult = ProcessHelper::StartProcess($cmd);
+		if (!$procresult["success"])  CLI::DisplayError("Failed to start '" . $cmd . "'.", $procresult);
+
+		ProcessHelper::Wait($procresult["proc"], $procresult["pipes"], "", -1, true);
+	}
 ?>
