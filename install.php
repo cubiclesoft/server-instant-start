@@ -12,7 +12,7 @@
 	$rootpath = dirname(__FILE__);
 
 	require_once $rootpath . "/support/cli.php";
-	require_once $rootpath . "/support/process_helper.php";
+	require_once $rootpath . "/scripts/functions.php";
 
 	// Normalize the environment.
 	$prevpath = getenv("PATH");
@@ -34,15 +34,7 @@
 		if ($opt !== "")  $cmd .= " " . escapeshellarg($opt);
 	}
 
-	$procresult = ProcessHelper::StartProcess($cmd);
-	if (!$procresult["success"])  CLI::DisplayError("Installation failed.", $result);
-
-	function DumpOutput($str)
-	{
-		echo $str;
-	}
-
-	ProcessHelper::Wait($procresult["proc"], $procresult["pipes"], "", -1, "DumpOutput");
+	RunExecutable($cmd);
 
 	echo "\nInstallation complete.\n";
 
