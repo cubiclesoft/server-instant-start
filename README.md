@@ -1,7 +1,7 @@
 Server Instant Start
 ====================
 
-Spin up a fully configured Ubuntu/Debian-based web server in under 5 minutes with Nginx (w/ HTTPS), PHP FPM, Postfix, OpenDKIM, MySQL/MariaDB, PostgreSQL, and more.  Deploy your web application too.
+Spin up a fully configured Ubuntu/Debian-based web server in under 10 minutes with Nginx (w/ HTTPS), PHP FPM, Postfix, OpenDKIM, MySQL/MariaDB, PostgreSQL, and more.  Deploy your web application too.
 
 Instant Start is useful for setting up an entire server with minimal effort.  Quickly install all components of a server in just a couple of minutes:  A well-rounded OS configuration plus optional configuration of web server, email sending capabilities, a scripting language, and database(s).  The contents of and knowledge contained in this repository come from responsibly managing many Linux-based web servers for over a decade.
 
@@ -27,6 +27,8 @@ Open the following in a new tab to start creating a Droplet on DigitalOcean:
 [![Deploy to DO](https://mp-assets1.sfo2.digitaloceanspaces.com/deploy-to-do/do-btn-blue.svg)](https://cloud.digitalocean.com/droplets/new?size=s-1vcpu-1gb&distro=ubuntu&options=ipv6)
 
 (Read the Alternate VPS Setup section below for using Instant Start with other VPS providers.)
+
+Using the latest Ubuntu x64 Long-Term Support (LTS) release is recommended.
 
 Under "Select additional options" check the checkbox that says "User data".  Copy and paste the following script into the box that appears and modify it as you see fit:
 
@@ -105,6 +107,20 @@ Key Locations
 * `/var/www/yourdomain.com/public_html` - The public web root for a domain.
 * `/var/www/yourdomain.com/protected_html` - A private directory for a domain.
 * `/var/scripts` - Various automation scripts (e.g. cron jobs).
+* `/etc/iptables/rules.v4` and `/etc/iptables/rules.v6` - Firewall rules (iptables).
+
+Alternate VPS Setup
+-------------------
+
+To run this software, you need an Ubuntu/Debian OS distribution on a Virual Private Server (VPS) or dedicated host.  Providers like DigitalOcean, OVH, AWS, Azure, etc. make it easy to spin up a VPS.
+
+The shell script under the Getting Started section is also in `example_install.sh`.  For non-DigitalOcean hosts, just upload files, manually modify `PUBLIC_IPV4` and `PUBLIC_IPV6` in `example_install.sh` with correct IP address(es), perform a `chmod 755 example_install.sh`, and then execute the script as the `root` user `./example_install.sh`.
+
+DigitalOcean is primarily for quickly setting up a temporary Internet-facing server, which is good for trying out new things like Server Instant Start, testing some software in isolation, or for short-lived projects.  Web hosting service providers abound but most of those are shared hosts with little control.  A Virtual Private Server (VPS), which is what DigitalOcean mostly offers/provides, is something between shared hosting and cloud/dedicated hosting.  Droplets are intended to be cheap, short-lived VPS instances that are created and destroyed as needed.  Even though Droplets weren't really ever intended for normal web hosting, quite a few people use them that way.
+
+Running a VPS (or similar) comes with responsbilities.  The biggest one is making sure that the system is secure, which means that the system remains fully patched because it won't automatically be done for you.  Server Instant Start solves a number of configuration management problems by performing an opinionated installation that attempts to create a generally self-securing setup.  For example, it installs a PHP script that runs `apt-get dist-upgrade` with automatic rebooting as needed (e.g. kernel updates) and configures cron to automatically run that script every single day.
+
+If the intent is to run a server long-term, I highly recommend using an [OVH VPS](https://www.ovhcloud.com/en/vps/cheap-vps/) instead of DigitalOcean since OVH offers a lot more hardware and network transfer for less cost but slightly less comprehensive technical support.
 
 Installed Software
 ------------------
@@ -131,18 +147,39 @@ Optionally installed and configured:
 * MariaDB/MySQL.
 * PostgreSQL.
 
-Alternate VPS Setup
--------------------
+Modified Files
+--------------
 
-To run this software, you need an Ubuntu/Debian OS distribution on a Virual Private Server (VPS) or dedicated host.  Providers like DigitalOcean, OVH, AWS, Azure, etc. make it easy to spin up a VPS.
+The following changes are made to the system by Instant Start that some distro purists may disagree with.  These are documented so that you can decide if you want to adjust specific changes later or install and configure specific packages yourself.
 
-The shell script under the Getting Started section is also in `example_install.sh`.  For non-DigitalOcean hosts, just upload files, manually modify `PUBLIC_IPV4` and `PUBLIC_IPV6` in `example_install.sh` with correct IP address(es), perform a `chmod 755 example_install.sh`, and then execute the script as the `root` user `./example_install.sh`.
+Always modified:
 
-DigitalOcean is primarily for quickly setting up a temporary Internet-facing server, which is good for trying out new things like Server Instant Start, testing some software in isolation, or for short-lived projects.  Web hosting service providers abound but most of those are shared hosts with little control.  A Virtual Private Server (VPS), which is what DigitalOcean mostly offers/provides, is something between shared hosting and cloud/dedicated hosting.  Droplets are intended to be cheap, short-lived VPS instances that are created and destroyed as needed.  Even though Droplets weren't really ever intended for normal web hosting, quite a few people use them that way.
+* `/etc/sysctl.conf` - Changes a few various kernel options for improved uptime and security.  See [this post](http://cubicspot.blogspot.com/2016/06/elegant-iptables-rules-for-your-linux.html) for details.
+* `/etc/security/limits.conf`, `/etc/systemd/system.conf`, `/etc/systemd/user.conf`, `/etc/pam.d/common-session`, and `/etc/pam.d/common-session-noninteractive` - Set OS file handle limits.  See [this post](https://superuser.com/questions/1200539/cannot-increase-open-file-limit-past-4096-ubuntu) for details.
 
-Running a VPS (or similar) comes with responsbilities.  The biggest one is making sure that the system is secure, which means that the system remains fully patched because it won't automatically be done for you.  Server Instant Start solves a number of configuration management problems by performing an opinionated installation that attempts to create a generally self-securing setup.  For example, it installs a PHP script that runs `apt-get dist-upgrade` with automatic rebooting as needed (e.g. kernel updates) and configures cron to automatically run that script every single day.
+When `INSTANT_HOSTNAME` is set (i.e. not an empty string):
 
-If the intent is to run a server long-term, I highly recommend using an [OVH VPS](https://www.ovhcloud.com/en/vps/cheap-vps/) instead of DigitalOcean since OVH offers a lot more hardware and network transfer for less cost but slightly less comprehensive technical support.
+* `/etc/hostname`, `/etc/hosts` - Sets the hostname to the value in `INSTANT_HOSTNAME`.
+* `/etc/cloud/cloud.cfg` - Disables setting the hostname during boot.
+
+When `INSTANT_SERVERS` contains 'nginx':
+
+* `/etc/apt/sources.list` - Adds the official Nginx packages from nginx.org to the apt sources list since Debian lags behind several releases.
+* `/etc/nginx/nginx.conf` - Created using the template from [scripts/files/nginx_core.txt](scripts/files/nginx_core.txt).
+* `/etc/nginx/sites-available/default.conf` - Created using the template from [scripts/files/nginx_site_default.txt](scripts/files/nginx_site_default.txt).
+
+When `INSTANT_SERVERS` contains 'php-fpm':
+
+* `/etc/php/.../fpm/php.ini` - Increases various limits, enables the Zend opcache, and sets the timezone.
+* `/etc/php/.../fpm/pool.d/www.conf` - Switches from Unix sockets to TCP and switches to on-demand mode to better optimize system resources.
+
+When `INSTANT_SERVERS` contains 'email-sendonly':
+
+* `/etc/postfix/main.cf` - Sets the mail hostname via `INSTANT_EMAIL_DOMAIN` and applies a couple of sensible changes to prevent an open mail relay.
+
+When `INSTANT_SERVERS` contains 'mariadb':
+
+* `/etc/apt/sources.list` - Adds the official MariaDB packages from a DigitalOcean mirror to the apt sources list since Debian lags behind several releases.
 
 More Information
 ----------------
