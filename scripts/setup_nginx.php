@@ -11,8 +11,9 @@
 
 	$rootpath2 = dirname(__FILE__);
 
-	require_once $rootpath2 . "/../support/dir_helper.php";
 	require_once $rootpath2 . "/functions.php";
+	require_once $rootpath2 . "/../support/dir_helper.php";
+	require_once $rootpath2 . "/../support/process_helper.php";
 
 	// NOTE:  The Ubuntu/Debian nginx package tends to lag far behind the latest version and makes several really bad configuration decisions.
 
@@ -59,7 +60,14 @@
 	@system("/usr/bin/apt-get -y install nginx");
 
 	// Create a stronger ephemeral key exchange for SSL (this process can take several minutes).
-	if (!file_exists("/var/local/dhparam2048.pem"))  @system("openssl dhparam -out /var/local/dhparam2048.pem 2048");
+	if (!file_exists("/var/local/dhparam2048.pem"))
+	{
+		$cmd = ProcessHelper::FindExecutable("openssl", "/usr/bin");
+		if ($cmd === false)  CLI::DisplayError("Unable to locate OpenSSL.");
+
+		RunExecutable(escapeshellarg($cmd) . " dhparam -out /var/local/dhparam2048.pem 2048");
+	}
+
 	chmod("/var/local/dhparam2048.pem", 0400);
 
 	// The main Nginx configuration file needs so much work that simply overwriting it is the best option.
