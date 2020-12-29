@@ -13,7 +13,6 @@
 	$rootpath = dirname(__FILE__);
 
 	require_once $rootpath . "/../support/cli.php";
-	require_once $rootpath . "/../support/random.php";
 	require_once $rootpath . "/../support/dir_helper.php";
 	require_once $rootpath . "/functions.php";
 
@@ -43,9 +42,13 @@
 	// Install and configure postfix.
 	if (in_array("email-sendonly", $argv))  require_once $rootpath . "/setup_email_sendonly.php";
 
-	// Install and configure MariaDB/MySQL.
-	if (in_array("mariadb", $argv))  require_once $rootpath . "/setup_db_mariadb.php";
-	else if (in_array("mysql", $argv))  require_once $rootpath . "/setup_db_mysql.php";
+	// Install MariaDB/MySQL.
+	if (in_array("mariadb", $argv))  require_once $rootpath . "/setup_db_mariadb_install.php";
+	else if (in_array("mysql", $argv))  require_once $rootpath . "/setup_db_mysql_install.php";
+
+	// Configure MariaDB/MySQL.
+	if (in_array("mariadb-configure", $argv))  require_once $rootpath . "/setup_db_mariadb_configure.php";
+	else if (in_array("mysql-configure", $argv))  require_once $rootpath . "/setup_db_mysql_configure.php";
 
 	// Install and configure PostgreSQL.
 	if (in_array("postgresql", $argv) || in_array("postgres", $argv) || in_array("pgsql", $argv))  require_once $rootpath . "/setup_db_postgresql.php";

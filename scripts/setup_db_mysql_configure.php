@@ -12,11 +12,10 @@
 	$rootpath2 = dirname(__FILE__);
 
 	require_once $rootpath2 . "/functions.php";
-	require_once $rootpath2 . "/../support/random.php";
 	require_once $rootpath2 . "/../support/process_helper.php";
 
-	@system("/usr/bin/apt-get update");
-	@system("/usr/bin/apt-get -y install mysql-server php-mysql");
+	$cmd = ProcessHelper::FindExecutable("mysqld", "/usr/sbin");
+	if ($cmd === false)  CLI::DisplayError("Unable to locate MySQL server (mysqld).");
 
 	// Stop the MySQL server.
 	@system("service mysql stop");
