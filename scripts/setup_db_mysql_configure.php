@@ -123,4 +123,6 @@
 
 	// Start the MySQL server normally.
 	@system("service mysql start");
+
+	exit();
 ?>

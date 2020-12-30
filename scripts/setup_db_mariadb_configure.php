@@ -123,4 +123,6 @@
 
 	// Start the MariaDB server normally.
 	@system("service mysql start");
+
+	exit();
 ?>
