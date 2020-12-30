@@ -14,15 +14,15 @@
 	require_once $rootpath2 . "/functions.php";
 
 	// Install/update dehydrated.
-	if (!file_exists("/root/dehydrated/dehydrated"))  @system("git clone https://github.com/dehydrated-io/dehydrated.git /root/dehydrated");
-	else  @system("git -C /root/dehydrated pull");
+	if (!file_exists("/var/scripts/dehydrated/dehydrated"))  @system("git clone https://github.com/dehydrated-io/dehydrated.git /var/scripts/dehydrated");
+	else  @system("git -C /var/scripts/dehydrated pull");
 
-	@chmod("/root/dehydrated/dehydrated", 0750);
+	@chmod("/var/scripts/dehydrated/dehydrated", 0750);
 
 	@mkdir("/etc/dehydrated");
 	@chmod("/etc/dehydrated", 0750);
 
-	if (!file_exists("/etc/dehydrated/config"))  @copy("/root/dehydrated/docs/examples/config", "/etc/dehydrated/config");
+	if (!file_exists("/etc/dehydrated/config"))  @copy("/var/scripts/dehydrated/docs/examples/config", "/etc/dehydrated/config");
 	@chmod("/etc/dehydrated/config", 0640);
 
 	$datamap = array(
@@ -41,11 +41,11 @@
 	$filename = "/root/crontab_" . time() . ".txt";
 	@system("crontab -l > " . escapeshellarg($filename));
 	$data = trim(file_get_contents($filename));
-	if (strpos($data, "/root/dehydrated/dehydrated") === false)
+	if (strpos($data, "/var/scripts/dehydrated/dehydrated") === false)
 	{
 		$data .= "\n\n";
 		$data .= "# Automatic certificate renewal.\n";
-		$data .= date("i H", $ts) . " * * * /usr/bin/timeout 10m /root/dehydrated/dehydrated --cron >/tmp/cron_dehydrated_renew.log 2>&1\n";
+		$data .= date("i H", $ts) . " * * * /usr/bin/timeout 10m /var/scripts/dehydrated/dehydrated --cron >/tmp/cron_dehydrated_renew.log 2>&1\n";
 
 		$data = trim($data) . "\n";
 		file_put_contents($filename, $data);
@@ -54,7 +54,7 @@
 
 	@unlink($filename);
 
-	@system("/root/dehydrated/dehydrated --register --accept-terms");
+	@system("/var/scripts/dehydrated/dehydrated --register --accept-terms");
 
 	// Get the command.
 	$cmds = array(
@@ -85,7 +85,7 @@
 		$lines = UpdateConfFile($lines, $datamap, " ", "#");
 		file_put_contents("/etc/dehydrated/domains.txt", trim(implode("\n", $lines)) . "\n");
 
-		@system("/root/dehydrated/dehydrated --cron");
+		@system("/var/scripts/dehydrated/dehydrated --cron");
 
 		// Attempt to update Nginx config for the first domain.
 		if ($cmd === "nginx" && file_exists("/etc/dehydrated/certs/" . $certname . "/fullchain.pem") && file_exists("/etc/nginx/sites-available/" . $certname . ".conf"))
