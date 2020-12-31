@@ -22,24 +22,30 @@
 	putenv("DEBIAN_FRONTEND=noninteractive");
 
 	if (!file_exists("/etc/apt/sources.list"))  CLI::DisplayError("The file '/etc/apt/sources.list' does not exist.  Not actually Debian-based?");
-	system("/usr/bin/apt-get update");
-	system("/usr/bin/apt-get -y install software-properties-common iptables-persistent fail2ban vnstat net-tools htop openssl git wget curl php-gd php-json php-sqlite3 php-curl");
 
-	// Now that the environment is normalized, run the main script.
-	$cmd = escapeshellarg(PHP_BINARY) . " " . escapeshellarg($rootpath . "/scripts/main.php");
-	for ($x = 1; $x < $argc; $x++)  $cmd .= " " . escapeshellarg($argv[$x]);
-	$options = explode(" ", preg_replace('/\s+/', " ", trim(str_replace(array(",", ";"), " ", (string)getenv("INSTANT_SERVERS")))));
-	foreach ($options as $opt)
+	if ($argc > 1 && $argv[1] === "reboot-if-required")
 	{
-		if ($opt !== "")  $cmd .= " " . escapeshellarg($opt);
+		// Reboot automatically as needed.
+		if (file_exists("/var/run/reboot-required"))  system("reboot");
 	}
+	else
+	{
+		system("/usr/bin/apt-get update");
+		system("/usr/bin/apt-get -y install software-properties-common iptables-persistent fail2ban vnstat net-tools htop openssl git wget curl php-gd php-json php-sqlite3 php-curl");
 
-	RunExecutable($cmd);
+		// Now that the environment is normalized, run the main script.
+		$cmd = escapeshellarg(PHP_BINARY) . " " . escapeshellarg($rootpath . "/scripts/main.php");
+		for ($x = 1; $x < $argc; $x++)  $cmd .= " " . escapeshellarg($argv[$x]);
+		$options = explode(" ", preg_replace('/\s+/', " ", trim(str_replace(array(",", ";"), " ", (string)getenv("INSTANT_SERVERS")))));
+		foreach ($options as $opt)
+		{
+			if ($opt !== "")  $cmd .= " " . escapeshellarg($opt);
+		}
 
-	echo "\nInstallation complete.\n";
+		RunExecutable($cmd);
 
-	// Reboot automatically as needed.
-	if (file_exists("/var/run/reboot-required"))  system("reboot");
+		echo "\nInstallation complete.\n";
+	}
 
 	putenv("PATH=" . $prevpath);
 ?>

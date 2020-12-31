@@ -59,7 +59,7 @@ export INSTANT_WWW_DOMAINS="";
 # Options:  nginx, php-fpm, email-sendonly, mariadb, mysql, postgresql
 export INSTANT_SERVERS="";
 
-cd /root/;
+cd /root;
 
 # Optionally clone useful but unrelated CubicleSoft network and server management software.
 # NOTE:  Some software products require separate installation/configuration (e.g. Cloud Backup is not magical).
@@ -71,9 +71,15 @@ cd /root/;
 
 # Clone and run Server Instant Start.
 git clone https://github.com/cubiclesoft/server-instant-start.git;
-cd server-instant-start;
 
+cd /root/server-instant-start;
 php install.php init-system php-cli;
+
+# Put additional installation stuff here (e.g. your application installer).
+
+# Comment this out if you want to reboot manually later.
+cd /root/server-instant-start;
+php install.php reboot-if-required;
 ```
 
 Update the `export TZ=` line with your current timezone.  This will be used to set the timezone of the Droplet and associated software (e.g. PHP) so that dates and times are stored and displayed as expected.  The timezone also affects any cron jobs that are set up.  Leave it blank for `UTC +0000`.
