@@ -28,5 +28,7 @@ server {
     # Additional rules go here.
 #    error_page 400 404 https://domain.com/;
 
+    include /etc/nginx/global/location-drc.conf;
+
     include /etc/nginx/global/php-local.conf;
 }

@@ -56,7 +56,7 @@ export INSTANT_EMAIL_DOMAIN="";
 export INSTANT_WWW_DOMAINS="";
 
 # Select servers to install (if any).
-# Options:  nginx, php-fpm, email-sendonly, mariadb, mysql, postgresql
+# Options:  nginx, php-fpm, email-sendonly, mariadb, mysql, postgresql, php-drc
 export INSTANT_SERVERS="";
 
 cd /root;
@@ -114,6 +114,7 @@ Key Locations
 * `/var/www/yourdomain.com/protected_html` - A private directory for a domain.
 * `/var/scripts` - Various automation scripts (e.g. cron jobs).
 * `/etc/iptables/rules.v4` and `/etc/iptables/rules.v6` - Firewall rules (iptables).
+* `/opt/php-drc` - Data Relay Center configuration.
 
 Alternate VPS Setup
 -------------------
@@ -149,9 +150,10 @@ Optionally installed and configured:
 * Nginx.
 * Let's Encrypt.  Post-install only.
 * PHP FPM.
-* PHP extensions (PDO mysql, PDO postgres).
+* PHP extensions (PDO mysql, PDO postgres, PECL ev).
 * MariaDB/MySQL.
 * PostgreSQL.
+* [Data Relay Center](https://github.com/cubiclesoft/php-drc).
 
 Modified Files
 --------------

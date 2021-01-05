@@ -21,7 +21,7 @@ export INSTANT_EMAIL_DOMAIN="";
 export INSTANT_WWW_DOMAINS="";
 
 # Select servers to install (if any).
-# Options:  nginx, php-fpm, email-sendonly, mariadb, mysql, postgresql
+# Options:  nginx, php-fpm, email-sendonly, mariadb, mysql, postgresql, php-drc
 export INSTANT_SERVERS="";
 
 cd /root;

@@ -53,6 +53,9 @@
 	// Install and configure PostgreSQL.
 	if (in_array("postgresql", $argv) || in_array("postgres", $argv) || in_array("pgsql", $argv))  require_once $rootpath . "/setup_db_postgresql.php";
 
+	// Install and configure Data Relay Center (DRC).
+	if (in_array("php-drc", $argv))  require_once $rootpath . "/setup_php_drc.php";
+
 	// Load the final configuration (if any).
 	$installconfig = @json_decode(file_get_contents($rootpath . "/../config.dat"), true);
 	if (!is_array($installconfig))  $installconfig = array("accounts" => array());

@@ -80,6 +80,7 @@
 	if (!file_exists("/etc/nginx/global/restrictions.conf"))  file_put_contents("/etc/nginx/global/restrictions.conf", file_get_contents($rootpath2 . "/files/nginx_global_restrictions.txt"));
 	if (!file_exists("/etc/nginx/global/location-default.conf"))  file_put_contents("/etc/nginx/global/location-default.conf", file_get_contents($rootpath2 . "/files/nginx_global_location-default.txt"));
 	if (!file_exists("/etc/nginx/global/location-cms.conf"))  file_put_contents("/etc/nginx/global/location-cms.conf", file_get_contents($rootpath2 . "/files/nginx_global_location-cms.txt"));
+	if (!file_exists("/etc/nginx/global/location-drc.conf"))  file_put_contents("/etc/nginx/global/location-drc.conf", file_get_contents($rootpath2 . "/files/nginx_global_location-drc.txt"));
 
 	// Well, the Ubuntu nginx package does one thing correctly.  So let's borrow that idea.
 	@mkdir("/etc/nginx/sites-available");
