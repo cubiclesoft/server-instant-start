@@ -5,6 +5,8 @@ Spin up a fully configured Ubuntu/Debian-based web server in under 10 minutes wi
 
 Instant Start is useful for setting up an entire server with minimal effort.  Quickly install all components of a server in just a couple of minutes:  A well-rounded OS configuration plus optional configuration of web server, email sending capabilities, a scripting language, and database(s).  The contents of and knowledge contained in this repository come from responsibly managing many Linux-based web servers for over a decade.
 
+[![Server Instant Start Overview and Demo video](https://user-images.githubusercontent.com/1432111/104147985-ae9dbf80-538d-11eb-863b-9a0a0cd593ac.png)](https://www.youtube.com/watch?v=l3yimAjmo9c "Server Instant Start Overview and Demo")
+
 Only using Instant Start on a brand new server is highly recommended.  Any Debian-based Linux distribution will probably work fine.  Failure to use Instant Start on a newly created system may result in damage to existing configuration files and/or data loss.
 
 [![Donate](https://cubiclesoft.com/res/donate-shield.png)](https://cubiclesoft.com/donate/) [![Discord](https://img.shields.io/discord/777282089980526602?label=chat&logo=discord)](https://cubiclesoft.com/product-support/github/)
