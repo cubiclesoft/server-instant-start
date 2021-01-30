@@ -15,6 +15,16 @@
 	require_once $rootpath2 . "/../support/dir_helper.php";
 	require_once $rootpath2 . "/../support/process_helper.php";
 
+	// Deny www-data from creating/running crontabs.  Prevents advanced persistent threats (APTs).
+	$datamap = array(
+		"www-data" => "",
+	);
+
+	$lines = (file_exists("/etc/cron.deny") ? explode("\n", trim(file_get_contents("/etc/cron.deny"))) : array());
+	$lines = UpdateConfFile($lines, $datamap, "");
+	file_put_contents("/etc/cron.deny", implode("\n", $lines) . "\n");
+
+
 	// NOTE:  The Ubuntu/Debian nginx package tends to lag far behind the latest version and makes several really bad configuration decisions.
 
 	// Retrieve system information.
@@ -57,6 +67,7 @@
 		}
 	}
 
+	// Install Nginx.
 	@system("/usr/bin/apt-get -y install nginx");
 
 	// Create a stronger ephemeral key exchange for SSL (this process can take several minutes).
